@@ -1,0 +1,39 @@
+<%- include("partials/header2.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>   
+    <link rel="stylesheet" href="register.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="area">
+    <form action="/" method="post">
+        <div class="Username">
+            <span class="a">  <label for="inputusername">Username</label></span><br>
+              <input type="username" class="form-control" id="inputusername" aria-describedby="userhelp" placeholder="Enter Username">
+            </div>
+        <div class="email">
+          <span class="a">  <label for="exampleInputEmail1">Email</label></span><br>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+          <div class="Password">
+            <label for="Password">Password</label><br>
+            <input type="Password" class="form-control" id="Password" aria-describedby="emailHelp" placeholder="Enter Password">
+          </div>
+          <div class="Location">
+            <span class="a">  <label for="inputlocation">Location</label></span><br>
+              <input type="Location" class="form-control" id="inputlocation" aria-describedby="locationHelp" placeholder="Enter Location">
+            </div>
+          <div class="g-recaptcha" data-sitekey="6LcZMlopAAAAAPVcFdNVE2ryn0BxMK1SyQdNbfCG"></div>
+      <br/>
+      <!-- <input type="submit" value="Submit"> -->
+      <div class="remember">
+        <input class="checkbox" type="checkbox"> Remember me
+      </div>
+      <button type="submit" class="signin-button">Sign In</button> 
+    </form>
+</div>
+<%- include("partials/footer2.ejs") %>

@@ -1,0 +1,14 @@
+.footer{
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+    text-align: center;
+    font-size:15px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #868282;
+}
+.signup{
+    color:rgb(93, 41, 197);
+    text-decoration: none; 
+    margin-left: 5px;
+}

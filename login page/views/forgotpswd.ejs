@@ -1,0 +1,24 @@
+<%- include("partials/forgotheader.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot password</title>   
+    <link rel="stylesheet" href="forgotpswd.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="area">
+    <form action="/" method="post">
+        <div class="instructions">
+            Enter your Email and instructions will be sent to you!
+        </div><br>
+        <div class="email">
+          <span class="a">  <label for="exampleInputEmail1">Email</label></span><br>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+      <button type="submit" class="signin-button">Reset</button> 
+    </form>
+</div>
+<%- include("partials/forgotfooter.ejs") %>

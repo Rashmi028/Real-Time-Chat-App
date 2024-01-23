@@ -1,0 +1,34 @@
+<%- include("partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG In</title>   
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="area">
+    <form action="/" method="post">
+        <div class="email">
+          <span class="a">  <label for="exampleInputEmail1">Email</label></span><br>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+          <div class="Password">
+            <label for="Password">Password</label>
+            <input type="Password" class="form-control" id="Password" aria-describedby="emailHelp" placeholder="Enter Password">
+          </div>
+          <div class="forgotpswd">
+           <a class="forgotpassword" href="/forgot-password">Forgot Password?</a></span><br><br>
+          </div>
+          <div class="g-recaptcha" data-sitekey="6LcZMlopAAAAAPVcFdNVE2ryn0BxMK1SyQdNbfCG"></div>
+      <br/>
+      <!-- <input type="submit" value="Submit"> -->
+      <div class="remember">
+        <input class="checkbox" type="checkbox"> Remember me
+      </div>
+      <button type="submit" class="signin-button">Sign In</button> 
+    </form>
+</div>
+<%- include("partials/footer.ejs") %>
