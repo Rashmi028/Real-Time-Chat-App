@@ -23,5 +23,5 @@ const UserSchema = new mongoose.Schema({
 //creating collections
 
 const Register = new mongoose.model("Register",UserSchema);
-
-module.exports=Register;
+export default Register;
+// module.exports=Register;
