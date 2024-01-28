@@ -149,3 +149,73 @@ h1 {
 }
 
 /* Rest of your existing styles */
+.add-form {
+    display: none;
+    position: fixed;
+    width:180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Style the close button */
+.add-form .close {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the Invite Contact button */
+.add-form .Invite-Contact {
+    background-color: #4caf50;
+    color: white;
+}
+.newuser{
+    background-color: white;
+    border: none;
+    width:300px;
+    height:45px;
+    text-align: left;
+    border-radius: 4px;
+    font-size: larger;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.push-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Optional margin between users */
+    background-color: white;
+    height:45px;
+    width:320px;
+    border-radius: 4px;
+
+}
+.user-contact{
+    margin-left: 12px;
+    border: none;
+    background-color: white;
+    font-size: larger;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.username {
+    margin-right: 10px; /* Optional margin between username and delete icon */
+}
+
+.delete-user {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black; /* Change color as needed */
+    font-size: 18px; /* Adjust size as needed */
+}

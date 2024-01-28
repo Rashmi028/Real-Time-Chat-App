@@ -9,19 +9,50 @@
     <link rel="stylesheet" href="homepage.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<div class="Chat-index">
-    <div class="profile-header">
-        <h3 class="Profile-heading">Contacts</h3>
-        <button class="add-button"><i class="bi bi-person-add"></i></button>
-    </div>
-    <div class="search-bar">
-        <i class="bi bi-search"></i>
-        <input type="text" class="form-control" placeholder="Search users">
-    </div>
- 
+<body>
+    <div class="Chat-index">
+        <div class="profile-header">
+            <h3 class="Profile-heading">Contacts</h3>
+            <button class="add-button" onclick="showPopup()"><i class="bi bi-person-add"></i></button>
+        </div>
+        <div class="search-bar">
+            <i class="bi bi-search"></i>
+            <input type="text" name="new-contact" class="form-control" placeholder="Search users">
+        </div>
+
+        <div class="add-form" id="addForm">
+            <div class="profile-header">
+                <h4 class="Profile-heading">Add Contact</h4>
+            </div>
+            <form  action="/contacts" method="post">
+                <div class="name-section">
+                    <label class="namehead">Name</label><br>
+                    <input type="text" name="inputname" placeholder="Enter name">
+                </div><br>
+                <div class="email-section">
+                    <label class="emailhead">E-mail</label><br>
+                    <input type="text" name="inputemail" placeholder="Enter Email">
+                </div><br>
+                <button class="close" onclick="hidePopup()">Close</button>
+                <button class="Invite-Contact">Invite Contact</button>
+            </form>
+        </div>
 
 
-</div>
+        <div class="push-user">
+            <% contactsArray.forEach(contact => { %>
+                <div class="user-container">
+                    <span class="username"><button class="user-contact"><%= contact.name %></button></span>
+                    <form action="/deleteContact" method="post">
+                        <input type="hidden" name="contactName" value="<%= contact.name %>">
+                        <button class="delete-user" type="submit">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    </div>
 
     <div class="chat-area">
         <div class="chat-icon-container">
@@ -29,9 +60,19 @@
         </div>
         <h1>Start Conversation</h1>
     </div>
-</div>
-</body>
-</html>
-    
+
+    <script>
+        // JavaScript code to show the popup
+        function showPopup() {
+            const addForm = document.getElementById('addForm');
+            addForm.style.display = 'block';
+        }
+
+        // JavaScript code to hide the popup
+        function hidePopup() {
+            const addForm = document.getElementById('addForm');
+            addForm.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

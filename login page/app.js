@@ -12,6 +12,7 @@ app.use(express.static("public"));
 app.use(express.json());
 // app.use("/register",Register);
 app.use(bodyParser.urlencoded({ extended: false }));
+let contactsArray = [];
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
     res.render("index.ejs");
@@ -26,7 +27,7 @@ app.get("/", (req, res) => {
     res.render("forgotpswd.ejs");
   });
   app.get("/contacts.ejs", (req, res) => {
-    res.render("contacts.ejs");
+    res.render("contacts",{ contactsArray });
   });
 
   app.get("/home", (req, res) => {
@@ -93,7 +94,26 @@ app.get("/", (req, res) => {
   app.post("/forgotpswd", (req, res) => {
     console.log(req.body);
   });
-  
+
+  app.post("/contacts",async (req,res)=>{
+    const inputName = req.body.inputname;
+    const inputEmail = req.body.inputemail;
+    const newContact = { name: inputName, email: inputEmail };
+    contactsArray.push(newContact);
+    res.render("contacts.ejs", { contactsArray });
+  })
+  app.post("/deleteContact", (req, res) => {
+    const contactNameToDelete = req.body.contactName;
+
+    // Filter out the contact to be deleted
+    const updatedContactsArray = contactsArray.filter(contact => contact.name !== contactNameToDelete);
+
+    // Update the contactsArray
+    contactsArray = updatedContactsArray;
+
+    // Redirect back to the contacts page
+    res.redirect("/contacts.ejs");
+});
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
