@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 //creating schema
 const UserSchema = new mongoose.Schema({
     Username:{
@@ -19,7 +20,14 @@ const UserSchema = new mongoose.Schema({
         required:true,
     }
 })
-
+UserSchema.pre("save", async function(next) {
+if(this.isModified("Password")){
+console.log(`the current password is ${this.Password}`);
+this.Password = await bcrypt.hash(this.Password, 10);
+console.log(`the current password is ${this.Password}`);
+}
+next();
+})
 //creating collections
 
 const Register = new mongoose.model("Register",UserSchema);

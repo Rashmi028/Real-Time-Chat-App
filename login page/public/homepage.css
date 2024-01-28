@@ -57,9 +57,95 @@ h1 {
 }
 
 .profile-picture {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
 }
+
+.profile-info-container {
+    max-height: 200px; /* Set the maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Add padding for better aesthetics */
+}
+
+.profile-info-scrollable {
+    /* Add additional styling as needed */
+}
+.chat-area {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+}
+
+.chat-icon-container {
+    display: inline-block;
+    background-color: #e0e0e0; /* Background color for the circular container */
+    border-radius: 50%; /* Make it a circle */
+    padding: 20px; /* Adjust padding as needed */
+}
+
+.chat-icon {
+    font-size: 50px; /* Adjust the font size of the chat icon */
+}
+/* homepage.css */
+
+/* Add these styles for the search bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Rest of your existing styles */
+.addicon{
+    align-items: flex-end;
+}
+/* homepage.css */
+
+/* Add these styles for the profile header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.Profile-heading {
+    margin: 0;
+}
+
+.addicon {
+    font-size: 24px;
+}
+
+/* homepage.css */
+
+/* Add these styles for the button */
+.add-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000; /* Adjust color based on your design */
+}
+
+.add-button:focus {
+    outline: none; /* Remove outline on focus if needed */
+}
+
+/* Rest of your existing styles */

@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import "./src/db/conn.js";
+import bcrypt from "bcryptjs";
 import path from "path";
 import Register from "./src/models/register.js";
 import { json } from "express";
@@ -24,6 +25,9 @@ app.get("/", (req, res) => {
   app.get("/forgot-password", (req, res) => {
     res.render("forgotpswd.ejs");
   });
+  app.get("/contacts.ejs", (req, res) => {
+    res.render("contacts.ejs");
+  });
 
   app.get("/home", (req, res) => {
     res.render("homepage.ejs");
@@ -31,8 +35,43 @@ app.get("/", (req, res) => {
   app.get("/profile.ejs", (req, res) => {
     res.render("profile.ejs");
   });
-  app.post("/", (req, res) => {
-    console.log(req.body);
+  app.get("/setting.ejs", (req, res) => {
+    res.render("setting.ejs");
+  });
+  app.get("/logout.ejs", (req, res) => {
+    res.render("index.ejs");
+  });
+
+
+  app.get("/chat.ejs", (req, res) => {
+    res.render("chat.ejs");
+  });
+  app.post("/", async (req, res) => {
+    try {
+      const { email, Password } = req.body;
+  
+      // Find the user by email
+      const user = await Register.findOne({ Email: email });
+  
+      // If the user doesn't exist, provide feedback
+      if (!user) {
+        return res.status(400).render("index.ejs", { message: "User not found" });
+      }
+  
+      // Compare the provided password with the hashed password in the database
+      const isPasswordMatch = await bcrypt.compare(Password, user.Password);
+  
+      // If the passwords don't match, provide feedback
+      if (!isPasswordMatch) {
+        return res.status(401).render("index.ejs", { message: "Incorrect password" });
+      }
+  
+      // If the passwords match, redirect to the home page or send a success message
+      res.redirect("/home");
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Internal Server Error");
+    }
   });
   app.post("/register", async(req, res) => {
     try{
@@ -44,12 +83,13 @@ app.get("/", (req, res) => {
 
       })
       const registered=await registerUser.save();
-      res.redirect("/index.ejs");
+      res.redirect("index.ejs", { message: "" });
     }
     catch(error){
       res.status(400).send(error);
     }
   });
+
   app.post("/forgotpswd", (req, res) => {
     console.log(req.body);
   });
