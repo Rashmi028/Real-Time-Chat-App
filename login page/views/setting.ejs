@@ -27,15 +27,58 @@
                 <p>🟢 Active</p>
                 <!-- Add more profile information as needed -->
             </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown button
+            <div  class="dropdown">
+                <button onclick="togglePersonalInfo()"class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Personal Info
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+              
+
+              <div class="personalinfoarea">
+                <div class="ha">
+                    Name
+                </div>
+                    <div class="p1" contenteditable="true" id="editableNameInPersonalInfo">
+                        Rashmi Verma
+                    </div>
+               
+                <div class="ha">
+                    Email
+                </div>
+                    <div class="p1">
+                        vermarashmi028@gmail.com
+                    </div>
+              
+                <div class="ha">
+                    Location
+                </div>
+                    <div class="p1">
+                        India
+                    </div>
+               
+              </div>
+            </div><br>
+
+              <div class="dropdown">
+                <button onclick="toggleSecurity()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Security
+                </button>
+
+                <div class="securityarea">
+                    <div class="aa">
+                        Show security notification
+                        <span class="switcharea"><label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                          </label></span>
+                    </div>
+                    <div class="aa">
+                        Notification Sound 
+                        <span class="switcharea"><label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                          </label></span>
+                    </div>
+                </div>
               </div>
            
         </div>
@@ -60,6 +103,15 @@
             const profilePictureInput = document.getElementById('profilePictureInput');
             profilePictureInput.click();
         }
+
+        function togglePersonalInfo() {
+        var personalInfoArea = document.querySelector('.personalinfoarea');
+        personalInfoArea.style.display = (personalInfoArea.style.display === 'block') ? 'none' : 'block';
+    }
+    function toggleSecurity() {
+        var personalInfoArea = document.querySelector('.securityarea');
+        personalInfoArea.style.display = (personalInfoArea.style.display === 'block') ? 'none' : 'block';
+    }
     </script>
 </body>
 </html>
