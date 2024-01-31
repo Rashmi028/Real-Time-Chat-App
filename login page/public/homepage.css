@@ -298,4 +298,131 @@ h1 {
   
   .slider.round:before {
     border-radius: 50%;
-  }
+  }/* styles.css */
+
+/* styles.css */
+
+.user-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 2px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.user-profile-pic img {
+    width: 50px; /* Adjust the size of the profile picture as needed */
+    height: 50px;
+    border-radius: 50%; /* To make it circular, adjust as needed */
+    margin-right: 10px;
+}
+
+.user-info {
+    flex-grow: 1;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.last-chat {
+    color: #555;
+}
+
+.mainchatbox
+{ 
+    background-color: white;
+    width:800px;
+}
+.headerchat{
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    padding-left: 25px;
+ 
+}
+.chat-options{
+    margin:20px;
+}
+
+.bi{
+    margin:10px;
+}
+
+.chat-options-menu{
+    background-color: white;
+
+}
+
+.main-chatting{
+    padding:25px;
+    display: flex;
+    flex-direction: column;
+    height: 300px; /* Set a fixed height for the chat area */
+    overflow-y: auto;
+}
+
+.left-chat{
+    display: flex;
+    background-color: #b3afaf;
+    width:fit-content;
+    height:fit-content;
+    padding:15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    align-self: flex-start;
+}
+.right-chat{
+    display: flex;
+    background-color: #b3afaf;
+    width:fit-content;
+    height:fit-content;
+    padding:15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    align-self: flex-end;
+    
+}
+
+.footerchat{
+    background-color: white;
+    border: #000;
+    height: 100px;
+    /* position: relative; */
+
+}
+.type-bar{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+   
+}
+
+.type-chat{
+    margin: 30px;
+    border-radius: 4px;
+    height:35px;
+    width:480px;
+    margin-top: 38px;
+}
+
+.bi-camera,
+.bi-emoji-smile-fill,
+.bi-paperclip,
+.bi-send-fill {
+    font-size: 20px; /* Adjust the font size */
+    margin: 15px; /* Add some margin for spacing between icons */
+    color: #333; /* Change the icon color */
+    cursor: pointer; /* Add a pointer cursor for interaction */
+
+}
+
+/* Style icon hover effects (optional) */
+.bi-camera:hover,
+.bi-emoji-smile-fill:hover,
+.bi-paperclip:hover,
+.bi-send-fill:hover {
+    color: #007BFF; /* Change the color on hover */
+}
