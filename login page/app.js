@@ -6,6 +6,8 @@ import bcrypt from "bcryptjs";
 import path from "path";
 import Register from "./src/models/register.js";
 import { json } from "express";
+// import io from "socket.io";
+let loguser;
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.static("public"));
@@ -33,8 +35,15 @@ app.get("/", (req, res) => {
   app.get("/home", (req, res) => {
     res.render("homepage.ejs");
   });
-  app.get("/profile.ejs", (req, res) => {
-    res.render("profile.ejs");
+ 
+  app.get("/profile.ejs", async (req, res) => {
+    try {
+      const loguser = await Register.findById(req.user.id); // Assuming you have the user's ID
+      res.render("profile.ejs", { loguser }); // Pass the loguser object to the template
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error fetching user data");
+    }
   });
   app.get("/setting.ejs", (req, res) => {
     res.render("setting.ejs");
@@ -84,7 +93,9 @@ app.get("/", (req, res) => {
 
       })
       const registered=await registerUser.save();
-      res.redirect("index.ejs", { message: "" });
+      res.redirect("/");
+
+     
     }
     catch(error){
       res.status(400).send(error);
