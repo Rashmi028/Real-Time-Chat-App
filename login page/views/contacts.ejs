@@ -42,7 +42,7 @@
         <div class="push-user">
             <% contactsArray.forEach(contact => { %>
                 <div class="user-container">
-                    <span class="username"><button class="user-contact"><%= contact.name %></button></span>
+                    <span class="username"><button class="user-contact" id="<%= contact.name %>" onclick="openChat('<%= contact.name %>')"><%= contact.name %></button></span>
                     <form action="/deleteContact" method="post">
                         <input type="hidden" name="contactName" value="<%= contact.name %>">
                         <button class="delete-user" type="submit">
@@ -61,6 +61,44 @@
         <h1>Start Conversation</h1>
     </div>
 
+    <div class="mainchatbox">
+        <div class="main-chat-container" style="display: none;">
+        <header class="headerchat">
+            <div class="user-profile-pic">
+                <img src="profilepic.png" alt="Profile Picture">
+            </div>
+            <div class="user-info">
+                <div class="user-name">John Doe</div>
+            </div>
+    
+            <div class="chat-options">
+                <i class="bi bi-search"></i> <i class="bi bi-telephone"></i><i class="bi bi-camera-video"></i> <i class="bi bi-three-dots chat-options-button" id="optionsButton"></i></div>
+    
+            
+        </header>
+        <hr>
+        <div class="main-chatting" id="chatMessages">
+            <div class="left-chat">
+                Hello
+            </div>
+            <div class="right-chat">
+                Hello
+            </div>
+        
+        </div>
+        <footer class="footerchat">
+            <div class="type-bar">
+                <input type="text" name="type-chat" id="messageInput" class="type-chat" placeholder="Enter Message...">
+                <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill" id="sendButton"></i>
+            </div>
+        
+        </footer>
+        </div>
+        </div>
+        <div class="chat-options-menu" id="optionsMenu" style="display: none;">
+            Clear Chat<span><i class="bi bi-trash"></i></span>
+            </div>
+
     <script>
         // JavaScript code to show the popup
         function showPopup() {
@@ -73,6 +111,56 @@
             const addForm = document.getElementById('addForm');
             addForm.style.display = 'none';
         }
+
+        function openChat(contactName) {
+        // Hide the "Start Conversation" section
+        document.querySelector('.chat-area ').style.display = 'none';
+
+        // Show the main chat box
+        document.querySelector('.main-chat-container').style.display = 'block';
+
+        // Update the user name in the main chat box with the selected contact's name
+        document.querySelector('.user-name').innerText = contactName;
+
+        // You can perform additional actions here, such as loading previous messages or other functionalities.
+    }
+
+    function sendMessage() {
+        // Get the message input
+        const messageInput = document.getElementById('messageInput');
+        const message = messageInput.value.trim();
+
+        // Clear the message input
+        messageInput.value = '';
+
+        // Create a new chat message element
+        const chatMessages = document.getElementById('chatMessages');
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messageElement.classList.add('right-chat'); // Assuming it's a left-aligned message
+        chatMessages.appendChild(messageElement);
+
+        // Scroll to the bottom of the chat messages
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Add event listener to the send button
+    document.addEventListener('DOMContentLoaded', function() {
+        const sendButton = document.getElementById('sendButton');
+        sendButton.addEventListener('click', sendMessage);
+    });
+
+
+
+
+            // Select the three-dot icon and the options menu
+            const optionsButton = document.getElementById('optionsButton');
+            const optionsMenu = document.getElementById('optionsMenu');
+        
+            // Toggle the display of the options menu when the three-dot icon is clicked
+            optionsButton.addEventListener('click', () => {
+                optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
+            });
     </script>
 </body>
 </html>

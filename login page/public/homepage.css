@@ -36,6 +36,18 @@ body {
 .icon:hover {
     background-color: #555;
 }
+/* .icon:hover::after {
+    content: attr(title);
+    background-color: black;
+    color: rgb(198, 126, 126);
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100%;
+    white-space: nowrap;
+  } */
 
 h1 {
     color: #333;

@@ -17,7 +17,7 @@
 
         <!-- Profile Information -->
         <div class="profile-info">
-            <p>AASAR X</p>
+            <p><%= loguser.Username %></p>
             <p>🟢 Active</p>
             <!-- Add more profile information as needed -->
         </div>
@@ -28,10 +28,10 @@
     <div class="profile-info-container">
         <div class="profile-info-scrollable">
             <p><strong>Name:</strong>  <%= loguser.Username %> </p>
-            <p><strong>Email:</strong> your.email@example.com</p>
+            <p><strong>Email:</strong> <%= loguser.Email %> </p>
             <p><strong>Phone:</strong> +123 456 7890</p>
-            <p><strong>About:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p><strong>Location:</strong> City, Country</p>
+            <p><strong>About:</strong> </p>
+            <p><strong>Location:</strong> <%= loguser.Location %> </p>
             <!-- Add more profile information as needed -->
         </div>
     </div>

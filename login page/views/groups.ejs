@@ -1,0 +1,135 @@
+<%- include("homepage.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Groups</title>
+</head>
+<body>
+    
+    <div class="Chat-index">
+        <header>
+        <h2 class="Profile-heading">My Groups</h2><br>
+        <div class="search-bar">
+            <i class="bi bi-search"></i>
+            <input type="text" name="new-contact" class="form-control" placeholder="Search groups">
+        </div>
+        <!-- <h4 class="Profile-heading">Recent</h4> -->
+    <!-- <hr>  -->
+</header>
+<div class="chatting-users">
+    <!-- Example box for a user -->
+
+    <div class="user-box">
+        <div class="user-profile-pic">
+            <img src="profilepic.png" alt="Profile Picture">
+        </div>
+        <div class="user-info">
+            <div class="user-name">John Doe</div>
+            <div class="last-chat">Hello there!</div>
+        </div>
+    </div>
+
+    <div class="user-box">
+        <div class="user-profile-pic">
+            <img src="profilepic.png" alt="Profile Picture">
+        </div>
+        <div class="user-info">
+            <div class="user-name">John Doe</div>
+            <div class="last-chat">Hello there!</div>
+        </div>
+    </div>
+    <div class="user-box">
+        <div class="user-profile-pic">
+            <img src="profilepic.png" alt="Profile Picture">
+        </div>
+        <div class="user-info">
+            <div class="user-name">John Doe</div>
+            <div class="last-chat">Hello there!</div>
+        </div>
+    </div>
+    <div class="user-box">
+        <div class="user-profile-pic">
+            <img src="profilepic.png" alt="Profile Picture">
+        </div>
+        <div class="user-info">
+            <div class="user-name">John Doe</div>
+            <div class="last-chat">Hello there!</div>
+        </div>
+    </div>   
+</div>
+</div>
+<!-- <div class="chat-area">
+    <div class="chat-icon-container">
+        <i class="bi bi-chat-left-fill chat-icon"></i>
+    </div>
+    <h1>Start Conversation</h1>
+</div> -->
+<div class="mainchatbox">
+    <header class="headerchat">
+        <div class="user-profile-pic">
+            <img src="profilepic.png" alt="Profile Picture">
+        </div>
+        <div class="user-info">
+            <div class="user-name">John Doe</div>
+        </div>
+
+        <div class="chat-options">
+            <i class="bi bi-search"></i> <i class="bi bi-telephone"></i><i class="bi bi-camera-video"></i> <i class="bi bi-three-dots chat-options-button" id="optionsButton"></i></div>
+
+        
+    </header>
+    <hr>
+    <div class="main-chatting">
+        <div class="left-chat">
+            Hello
+        </div>
+        <div class="right-chat">
+            Hello
+        </div>
+        <div class="left-chat">
+            sup?
+        </div>
+        <div class="right-chat">
+            I am good . Wbu?
+        </div>
+        <div class="left-chat">
+            Nothing just bored
+        </div>
+        <div class="left-chat">
+            sup?
+        </div>
+        <div class="right-chat">
+            I am good . Wbu?
+        </div>
+        <div class="left-chat">
+            Nothing just bored
+        </div>
+    </div>
+    <footer class="footerchat">
+        <div class="type-bar">
+            <input type="text" name="type-chat" class="type-chat" placeholder="Enter Message...">
+            <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill"></i>
+        </div>
+    
+    </footer>
+    </div>
+    <div class="chat-options-menu" id="optionsMenu" style="display: none;">
+        Clear Chat<span><i class="bi bi-trash"></i></span>
+        </div>
+
+
+        <script>
+            // Select the three-dot icon and the options menu
+            const optionsButton = document.getElementById('optionsButton');
+            const optionsMenu = document.getElementById('optionsMenu');
+        
+            // Toggle the display of the options menu when the three-dot icon is clicked
+            optionsButton.addEventListener('click', () => {
+                optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
+            });
+        </script>  
+        
+</body>
+</html>

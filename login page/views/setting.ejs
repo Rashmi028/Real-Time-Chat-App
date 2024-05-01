@@ -23,7 +23,7 @@
             <button class="edit-profile-btn" onclick="editProfile()"><i class="bi bi-pencil"></i> Change Picture</button>
         </div> <!-- Profile Information -->
             <div class="profile-info">
-                <p>AASAR X</p>
+                <p><%= loguser.Username %></p>
                 <p>🟢 Active</p>
                 <!-- Add more profile information as needed -->
             </div>
@@ -38,18 +38,18 @@
                     Name
                 </div>
                     <div class="p1" contenteditable="true" id="editableNameInPersonalInfo">
-                        Rashmi Verma
+                        <%= loguser.Username %>
                     </div>
                
                 <div class="ha">
                     Email
                 </div>
                     <div class="p1">
-                        vermarashmi028@gmail.com
+                        <%= loguser.Email %>
                     </div>
               
                 <div class="ha">
-                    Location
+                    <%= loguser.Location %>
                 </div>
                     <div class="p1">
                         India
@@ -72,7 +72,7 @@
                           </label></span>
                     </div>
                     <div class="aa">
-                        Notification Sound 
+                        Notification Sound     
                         <span class="switcharea"><label class="switch">
                             <input type="checkbox">
                             <span class="slider round"></span>

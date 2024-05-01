@@ -81,36 +81,19 @@
         
     </header>
     <hr>
-    <div class="main-chatting">
+    <div class="main-chatting" id="chatMessages">
         <div class="left-chat">
             Hello
         </div>
         <div class="right-chat">
             Hello
         </div>
-        <div class="left-chat">
-            sup?
-        </div>
-        <div class="right-chat">
-            I am good . Wbu?
-        </div>
-        <div class="left-chat">
-            Nothing just bored
-        </div>
-        <div class="left-chat">
-            sup?
-        </div>
-        <div class="right-chat">
-            I am good . Wbu?
-        </div>
-        <div class="left-chat">
-            Nothing just bored
-        </div>
+    
     </div>
     <footer class="footerchat">
         <div class="type-bar">
-            <input type="text" name="type-chat" class="type-chat" placeholder="Enter Message...">
-            <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill"></i>
+            <input type="text" name="type-chat" id="messageInput" class="type-chat" placeholder="Enter Message...">
+            <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill" id="sendButton"></i>
         </div>
     
     </footer>
@@ -121,6 +104,35 @@
 
 
         <script>
+          // Select the message input and send button
+          function sendMessage() {
+        // Get the message input
+        const messageInput = document.getElementById('messageInput');
+        const message = messageInput.value.trim();
+
+        // Clear the message input
+        messageInput.value = '';
+
+        // Create a new chat message element
+        const chatMessages = document.getElementById('chatMessages');
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messageElement.classList.add('right-chat'); // Assuming it's a left-aligned message
+        chatMessages.appendChild(messageElement);
+
+        // Scroll to the bottom of the chat messages
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Add event listener to the send button
+    document.addEventListener('DOMContentLoaded', function() {
+        const sendButton = document.getElementById('sendButton');
+        sendButton.addEventListener('click', sendMessage);
+    });
+
+
+
+
             // Select the three-dot icon and the options menu
             const optionsButton = document.getElementById('optionsButton');
             const optionsMenu = document.getElementById('optionsMenu');
