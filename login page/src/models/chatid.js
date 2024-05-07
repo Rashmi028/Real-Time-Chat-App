@@ -16,7 +16,9 @@ message:{
     type:String,
     required:true 
 }
-})
+},
+{timestamp:true}
+)
 //creating collections
 
 const Chat = new mongoose.model("Chat",ChatSchema);

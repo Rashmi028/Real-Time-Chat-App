@@ -18,8 +18,14 @@ const UserSchema = new mongoose.Schema({
     Location:{
         type:String,
         required:true,
-    }
-})
+    },
+    is_online:{
+        type:String,
+        default:0,
+        }
+},
+{timestamps:true}
+)
 UserSchema.pre("save", async function(next) {
 if(this.isModified("Password")){
 console.log(`the current password is ${this.Password}`);

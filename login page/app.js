@@ -9,13 +9,15 @@ import { json } from "express";
 import session from "express-session";
 import { Server} from "socket.io";
 import { createServer } from "http";
+import { islogin } from "./middleware/auth.js";
+import { islogout} from "./middleware/auth.js";
 // Set up session with a secret key and other options
 
 // import io from "socket.io";
 const app = express();
 const port = process.env.PORT || 3000;
-// const server = http.createServer(app);
-// const io = socketIo(server);
+const server = createServer(app);
+const io = new Server(server);
 app.use(express.static("public"));
 app.use(express.json());
 // app.use("/register",Register);
@@ -26,11 +28,20 @@ app.use(session({
   saveUninitialized: false
 }))
 let contactsArray = [];
+var usp=io.of('/user-namespace');
+usp.on('connection',function(socket){
+     console.log('User Connected');
+
+     socket.on('disconnect',function(){
+      console.log('User Disconnected');
+     });
+});
+
 app.set("view engine", "ejs");
-app.get("/", (req, res) => {
+app.get("/", islogout, (req, res) => {
     res.render("index.ejs");
   });
-  app.get("/register.ejs", (req, res) => {
+  app.get("/register.ejs",islogout, (req, res) => {
     res.render("register.ejs");
   });
   app.get("/group.ejs", (req, res) => {
@@ -42,7 +53,7 @@ app.get("/", (req, res) => {
   app.get("/contacts.ejs", (req, res) => {
     res.render("contacts",{ contactsArray });
   });
-  app.get("/home", (req, res) => {
+  app.get("/home",islogin, (req, res) => {
     res.render("homepage.ejs");
   });
   app.get("/profile.ejs", async (req, res) => {
@@ -74,7 +85,7 @@ app.get("/", (req, res) => {
       res.status(500).send("Error fetching user data");
   }
   });
-  app.get("/logout.ejs", (req, res) => {
+  app.get("/logout.ejs", islogin,(req, res) => {
     res.render("index.ejs");
   });
 
@@ -173,35 +184,7 @@ app.get("/", (req, res) => {
     // Redirect back to the contacts page
     res.redirect("/contacts.ejs");
 });
-
-
-  app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
   
-
-  // const server = app.listen(port, () => {
-  //   console.log(`Server running on port ${port}`);
-  // });
-  // const server=new Server(app);
-  // const io = new Server(server);
-
-  
-  //   // Handle Socket.IO events here
-  //   io.on('connection', (socket) => {
-  //     console.log('A user connected');
-  
-  //     // Handle chat message
-  //     socket.on('chat message', (msg) => {
-  //         console.log('message: ' + msg);
-  //         // Broadcast the message to all connected clients
-  //         io.emit('chat message', msg);
-  //     });
-  
-  //     // Handle disconnect
-  //     socket.on('disconnect', () => {
-  //         console.log('User disconnected');
-  //     });
-  // });
-  
- 
