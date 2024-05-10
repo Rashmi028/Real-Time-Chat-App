@@ -71,8 +71,12 @@
 </div>
 <script>
 
-
-var socket = io('/user-namespace');
+var sender_id='<%= loguser._id %>';
+var socket = io('/user-namespace',{
+    auth:{
+        token:'<%= loguser._id %>'
+    }
+});
 
     // Function to handle user-box click event
     function handleUserBoxClick() {

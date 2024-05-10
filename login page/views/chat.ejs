@@ -19,45 +19,22 @@
     <hr> 
 </header>
 <div class="chatting-users">
-    <!-- Example box for a user -->
-
-    <div class="user-box">
-        <div class="user-profile-pic">
-            <img src="profilepic.png" alt="Profile Picture">
-        </div>
-        <div class="user-info">
-            <div class="user-name">John Doe</div>
-            <div class="last-chat">Hello there!</div>
-        </div>
-    </div>
-
-    <div class="user-box">
-        <div class="user-profile-pic">
-            <img src="profilepic.png" alt="Profile Picture">
-        </div>
-        <div class="user-info">
-            <div class="user-name">John Doe</div>
-            <div class="last-chat">Hello there!</div>
-        </div>
-    </div>
-    <div class="user-box">
-        <div class="user-profile-pic">
-            <img src="profilepic.png" alt="Profile Picture">
-        </div>
-        <div class="user-info">
-            <div class="user-name">John Doe</div>
-            <div class="last-chat">Hello there!</div>
-        </div>
-    </div>
-    <div class="user-box">
-        <div class="user-profile-pic">
-            <img src="profilepic.png" alt="Profile Picture">
-        </div>
-        <div class="user-info">
-            <div class="user-name">John Doe</div>
-            <div class="last-chat">Hello there!</div>
-        </div>
-    </div>   
+    <% if (contactsArray.length > 0) { %>
+        <% contactsArray.forEach(contact => { %>
+            <div class="user-box">
+                <div class="user-profile-pic">
+                    <img src="profilepic.png" alt="Profile Picture">
+                </div>
+                <div class="user-info">
+                    <div class="user-name"><%= contact.name %></div>
+                    <div class="last-chat">Hello there!</div>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <!-- Show message if no contacts available -->
+        <p>No contacts added yet.</p>
+    <% } %>
 </div>
 </div>
 <!-- <div class="chat-area">

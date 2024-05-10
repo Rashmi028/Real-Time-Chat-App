@@ -11,8 +11,6 @@ import { Server} from "socket.io";
 import { createServer } from "http";
 import { islogin } from "./middleware/auth.js";
 import { islogout} from "./middleware/auth.js";
-// Set up session with a secret key and other options
-
 // import io from "socket.io";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,15 +26,6 @@ app.use(session({
   saveUninitialized: false
 }))
 let contactsArray = [];
-var usp=io.of('/user-namespace');
-usp.on('connection',function(socket){
-     console.log('User Connected');
-
-     socket.on('disconnect',function(){
-      console.log('User Disconnected');
-     });
-});
-
 app.set("view engine", "ejs");
 app.get("/", islogout, (req, res) => {
     res.render("index.ejs");
@@ -53,8 +42,20 @@ app.get("/", islogout, (req, res) => {
   app.get("/contacts.ejs", (req, res) => {
     res.render("contacts",{ contactsArray });
   });
-  app.get("/home",islogin, (req, res) => {
-    res.render("homepage.ejs");
+
+  app.get("/home",islogin, async(req, res) => {
+    try {
+      // Retrieve user ID from session
+      const userId = req.session.userId;
+
+      // Find user by ID
+      const loguser = await Register.findById(userId);
+
+      res.render("homepage.ejs", { loguser }); // Pass the loguser object to the template
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Error fetching user data");
+  }
   });
   app.get("/profile.ejs", async (req, res) => {
     try {
@@ -91,7 +92,7 @@ app.get("/", islogout, (req, res) => {
 
 
   app.get("/chat.ejs", (req, res) => {
-    res.render("chat.ejs");
+    res.render("chat.ejs", { contactsArray: contactsArray });
   });
   app.post("/", async (req, res) => {
     try {
@@ -184,7 +185,48 @@ app.get("/", islogout, (req, res) => {
     // Redirect back to the contacts page
     res.redirect("/contacts.ejs");
 });
-app.listen(port, () => {
+
+var usp=io.of('/user-namespace');
+usp.on('connection',async function(socket){
+     console.log('User Connected');
+     var userId=socket.handshake.auth.token;
+
+     await Register.findByIdAndUpdate({ _id: userId }, { $set:{ is_online:'1' }});
+     socket.on('disconnect',async function(){
+      console.log('User Disconnected');
+      var userId=socket.handshake.auth.token;
+
+      await Register.findByIdAndUpdate({ _id: userId }, { $set:{ is_online:'0' }});
+     });
+});
+
+server.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
   
+
+  // const server = app.listen(port, () => {
+  //   console.log(`Server running on port ${port}`);
+  // });
+  // const server=new Server(app);
+  // const io = new Server(server);
+
+  
+  //   // Handle Socket.IO events here
+  //   io.on('connection', (socket) => {
+  //     console.log('A user connected');
+  
+  //     // Handle chat message
+  //     socket.on('chat message', (msg) => {
+  //         console.log('message: ' + msg);
+  //         // Broadcast the message to all connected clients
+  //         io.emit('chat message', msg);
+  //     });
+  
+  //     // Handle disconnect
+  //     socket.on('disconnect', () => {
+  //         console.log('User disconnected');
+  //     });
+  // });
+  
+ 

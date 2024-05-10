@@ -9,3 +9,5 @@ mongoose.connect("mongodb://127.0.0.1:27017/Registration",{
     console.log(e);
     console.log("no connection");
 })
+
+
