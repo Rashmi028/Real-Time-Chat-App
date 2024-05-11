@@ -1,4 +1,5 @@
 <%- include("headerchat.ejs") %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,79 +11,43 @@
     
     <div class="Chat-index">
         <header>
-        <h2 class="Profile-heading">Chats</h2><br>
-        <div class="search-bar">
-            <i class="bi bi-search"></i>
-            <input type="text" name="new-contact" class="form-control" placeholder="Search users">
-        </div>
-        <h4 class="Profile-heading">Recent</h4>
-    <hr> 
-</header>
-<div class="chatting-users">
-    <% if (contactsArray.length > 0) { %>
-        <% contactsArray.forEach(contact => { %>
-            <div class="user-box">
-                <div class="user-profile-pic">
-                    <img src="profilepic.png" alt="Profile Picture">
-                </div>
-                <div class="user-info">
-                    <div class="user-name"><%= contact.name %></div>
-                    <div class="last-chat">Hello there!</div>
-                </div>
+            <h2 class="Profile-heading">Chats</h2><br>
+            <div class="search-bar">
+                <i class="bi bi-search"></i>
+                <input type="text" name="new-contact" class="form-control" placeholder="Search users">
             </div>
-        <% }); %>
-    <% } else { %>
-        <!-- Show message if no contacts available -->
-        <p>No contacts added yet.</p>
-    <% } %>
-</div>
-</div>
-<!-- <div class="chat-area">
-    <div class="chat-icon-container">
-        <i class="bi bi-chat-left-fill chat-icon"></i>
+            <h4 class="Profile-heading">Recent</h4>
+            <hr> 
+        </header>
+        <div class="chatting-users">
+            <% if (contactsArray.length > 0) { %>
+                <% contactsArray.forEach(contact => { %>
+                    <div class="user-box">
+                        <div class="user-profile-pic">
+                            <img src="profilepic.png" alt="Profile Picture">
+                        </div>
+                        <div class="user-info">
+                            <div class="username"><button class="user-contact" id="<%= contact.name %>" onclick="openMainChat('<%= contact.name %>')"><%= contact.name %></button></div>
+                            <div class="last-chat">Hello there!</div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <!-- Show message if no contacts available -->
+                <p>No contacts added yet.</p>
+            <% } %>
+        </div>
     </div>
-    <h1>Start Conversation</h1>
-</div> -->
-<div class="mainchatbox">
-    <header class="headerchat">
-        <div class="user-profile-pic">
-            <img src="profilepic.png" alt="Profile Picture">
+    <div class="chat-area">
+        <div class="chat-icon-container">
+            <i class="bi bi-chat-left-fill chat-icon"></i>
         </div>
-        <div class="user-info">
-            <div class="user-name">John Doe</div>
-        </div>
-
-        <div class="chat-options">
-            <i class="bi bi-search"></i> <i class="bi bi-telephone"></i><i class="bi bi-camera-video"></i> <i class="bi bi-three-dots chat-options-button" id="optionsButton"></i></div>
-
-        
-    </header>
-    <hr>
-    <div class="main-chatting" id="chatMessages">
-        <div class="left-chat">
-            Hello
-        </div>
-        <div class="right-chat">
-            Hello
-        </div>
-    
+        <h1>Start Conversation</h1>
     </div>
-    <footer class="footerchat">
-        <div class="type-bar">
-            <input type="text" name="type-chat" id="messageInput" class="type-chat" placeholder="Enter Message...">
-            <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill" id="sendButton"></i>
-        </div>
-    
-    </footer>
-    </div>
-    <div class="chat-options-menu" id="optionsMenu" style="display: none;">
-        Clear Chat<span><i class="bi bi-trash"></i></span>
-        </div>
+    <%- include("mainchat.ejs") %>
 
-
-        <script>
-          // Select the message input and send button
-          function sendMessage() {
+    <script>
+    function sendMessage() {
         // Get the message input
         const messageInput = document.getElementById('messageInput');
         const message = messageInput.value.trim();
@@ -118,7 +83,30 @@
             optionsButton.addEventListener('click', () => {
                 optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
             });
-        </script>  
+
+
         
+
+        // userBoxes.forEach(userBox => {
+        //     userBox.addEventListener('click', () => {
+        //         const userName = userBox.querySelector('.user-name').innerText;
+        //         openMainChat(userName);
+        //     });
+        // });
+
+        // Function to open the main chat box
+        function openMainChat(userName) {
+            // Hide the "Start Conversation" section
+            document.querySelector('.chat-area').style.display = 'none';
+
+            // Show the main chat box
+            document.querySelector('.main-chat-container').style.display = 'block';
+
+            // Update the user name in the main chat box with the selected contact's name
+            document.querySelector('.user-name').innerText = userName;
+
+            // You can perform additional actions here, such as loading previous messages or other functionalities.
+        }
+    </script>  
 </body>
 </html>

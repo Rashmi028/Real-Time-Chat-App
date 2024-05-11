@@ -58,44 +58,47 @@
     </div>
     <h1>Start Conversation</h1>
 </div> -->
-<div class="mainchatbox">
-    <header class="headerchat">
-        <div class="user-profile-pic">
-            <img src="profilepic.png" alt="Profile Picture">
-        </div>
-        <div class="user-info">
-            <div class="user-name">John Doe</div>
-        </div>
-
-        <div class="chat-options">
-            <i class="bi bi-search"></i> <i class="bi bi-telephone"></i><i class="bi bi-camera-video"></i> <i class="bi bi-three-dots chat-options-button" id="optionsButton"></i></div>
-
+ <div class="mainchatbox">
+        <div class="main-chat-container" style="display: none;">
+        <header class="headerchat">
+            <div class="user-profile-pic">
+                <img src="profilepic.png" alt="Profile Picture">
+            </div>
+            <div class="user-info">
+                <div class="user-name">John Doe</div>
+            </div>
+    
+            <div class="chat-options">
+                <i class="bi bi-search"></i> <i class="bi bi-telephone"></i><i class="bi bi-camera-video"></i> <i class="bi bi-three-dots chat-options-button" id="optionsButton"></i></div>
+    
+            
+        </header>
+        <hr>
+        <div class="main-chatting" id="chatMessages">
+            <div class="left-chat">
+                Hello
+            </div>
+            <div class="right-chat">
+                Hello
+            </div>
         
-    </header>
-    <hr>
-    <div class="main-chatting" id="chatMessages">
-        <div class="left-chat">
-            Hello
         </div>
-        <div class="right-chat">
-            Hello
+        <footer class="footerchat">
+            <div class="type-bar">
+                <input type="text" name="type-chat" id="messageInput" class="type-chat" placeholder="Enter Message...">
+                <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill" id="sendButton"></i>
+            </div>
+        
+        </footer>
         </div>
-    
-    </div>
-    <footer class="footerchat">
-        <div class="type-bar">
-            <input type="text" name="type-chat" id="messageInput" class="type-chat" placeholder="Enter Message...">
-            <i class="bi bi-camera"></i><i class="bi bi-emoji-smile-fill"></i><i class="bi bi-paperclip"></i><i class="bi bi-send-fill" id="sendButton"></i>
         </div>
-    
-    </footer>
-    </div>
+        <div class="chat-options-menu" id="optionsMenu" style="display: none;">
+            Clear Chat<span><i class="bi bi-trash"></i></span>
+            </div>
     <div class="chat-options-menu" id="optionsMenu" style="display: none;">
         Clear Chat<span><i class="bi bi-trash"></i></span>
         </div>
-
-
-        <script>
+        <!-- <script>
           // Select the message input and send button
           function sendMessage() {
         // Get the message input
@@ -133,7 +136,13 @@
             optionsButton.addEventListener('click', () => {
                 optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
             });
+
+
+            function loadChat(contactName) {
+    // Update the user name in the main chat box
+    document.querySelector('.user-name').textContent = contactName;
+}
         </script>  
         
 </body>
-</html>
+</html> -->

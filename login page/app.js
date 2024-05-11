@@ -89,7 +89,9 @@ app.get("/", islogout, (req, res) => {
   app.get("/logout.ejs", islogin,(req, res) => {
     res.render("index.ejs");
   });
-
+  app.get("/mainchat.ejs", (req, res) => {
+    res.render("mainchat.ejs", { contactsArray: contactsArray });
+  });
 
   app.get("/chat.ejs", (req, res) => {
     res.render("chat.ejs", { contactsArray: contactsArray });
