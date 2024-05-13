@@ -5,6 +5,7 @@ import "./src/db/conn.js";
 import bcrypt from "bcryptjs";
 import path from "path";
 import Register from "./src/models/register.js";
+import Chat from "./src/models/chatid.js";
 import { json } from "express";
 import session from "express-session";
 import { Server} from "socket.io";
@@ -43,20 +44,20 @@ app.get("/", islogout, (req, res) => {
     res.render("contacts",{ contactsArray });
   });
 
-  app.get("/home",islogin, async(req, res) => {
-    try {
-      // Retrieve user ID from session
-      const userId = req.session.userId;
+  // app.get("/home",islogin, async(req, res) => {
+  //   try {
+  //     // Retrieve user ID from session
+  //     const userId = req.session.userId;
 
-      // Find user by ID
-      const loguser = await Register.findById(userId);
+  //     // Find user by ID
+  //     const loguser = await Register.findById(userId);
 
-      res.render("homepage.ejs", { loguser }); // Pass the loguser object to the template
-  } catch (error) {
-      console.error(error);
-      res.status(500).send("Error fetching user data");
-  }
-  });
+  //     res.render("homepage.ejs", { loguser }); // Pass the loguser object to the template
+  // } catch (error) {
+  //     console.error(error);
+  //     res.status(500).send("Error fetching user data");
+  // }
+  // });
   app.get("/profile.ejs", async (req, res) => {
     try {
       // Retrieve user ID from session
@@ -93,8 +94,20 @@ app.get("/", islogout, (req, res) => {
     res.render("mainchat.ejs", { contactsArray: contactsArray });
   });
 
-  app.get("/chat.ejs", (req, res) => {
-    res.render("chat.ejs", { contactsArray: contactsArray });
+  app.get("/chat.ejs",islogin,async (req, res) => {
+    // res.render("chat.ejs", { contactsArray: contactsArray });
+    try {
+      // Retrieve user ID from session
+      const userId = req.session.userId;
+
+      // Find user by ID
+      const loguser = await Register.findById(userId);
+
+      res.render("chat.ejs", { loguser,contactsArray: contactsArray  }); // Pass the loguser object to the template
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Error fetching user data");
+  }
   });
   app.post("/", async (req, res) => {
     try {
@@ -116,7 +129,7 @@ app.get("/", islogout, (req, res) => {
         return res.status(401).render("index.ejs", { message: "Incorrect password" });
       }
       req.session.userId = user._id;
-      res.redirect("/home");
+      res.redirect("/chat.ejs");
       // If the passwords match, redirect to the home page or send a success message
    
     } catch (error) {
@@ -162,7 +175,7 @@ app.get("/", islogout, (req, res) => {
 
       if (existingUser) {
           // If the email exists, add the contact to the array
-          const newContact = { name: inputName, email: inputEmail };
+          const newContact = { name: inputName, email: inputEmail,is_online: existingUser.is_online, _id: existingUser._id };
           contactsArray.push(newContact);
           console.log(newContact);
           res.render("contacts.ejs", { contactsArray });
@@ -188,47 +201,42 @@ app.get("/", islogout, (req, res) => {
     res.redirect("/contacts.ejs");
 });
 
+app.post('/save-chat',async(req,res)=>{
+  try{
+  var chat =new Chat({
+    sender_id:req.body.sender_id,
+    receiver_id:req.body.receiver_id,
+    message:req.body.message,
+  }) ;
+  
+  var newChat=await chat.save();
+  res.status(200).send({success:true,msg:'Chat inserted!',data:newChat});
+  }catch(error){
+    res.status(400).send({success:false,msg:error.message});
+  }
+})
 var usp=io.of('/user-namespace');
 usp.on('connection',async function(socket){
      console.log('User Connected');
      var userId=socket.handshake.auth.token;
 
      await Register.findByIdAndUpdate({ _id: userId }, { $set:{ is_online:'1' }});
+
+     //user broadcasst online status
+     socket.broadcast.emit('getOnlineUser',{user_id:userId});
      socket.on('disconnect',async function(){
       console.log('User Disconnected');
       var userId=socket.handshake.auth.token;
 
       await Register.findByIdAndUpdate({ _id: userId }, { $set:{ is_online:'0' }});
+
+        //user broadcasst offline status
+     socket.broadcast.emit('getOfflineUser',{user_id:userId});
      });
 });
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
-  
-
-  // const server = app.listen(port, () => {
-  //   console.log(`Server running on port ${port}`);
-  // });
-  // const server=new Server(app);
-  // const io = new Server(server);
-
-  
-  //   // Handle Socket.IO events here
-  //   io.on('connection', (socket) => {
-  //     console.log('A user connected');
-  
-  //     // Handle chat message
-  //     socket.on('chat message', (msg) => {
-  //         console.log('message: ' + msg);
-  //         // Broadcast the message to all connected clients
-  //         io.emit('chat message', msg);
-  //     });
-  
-  //     // Handle disconnect
-  //     socket.on('disconnect', () => {
-  //         console.log('User disconnected');
-  //     });
-  // });
   
  

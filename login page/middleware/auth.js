@@ -17,7 +17,7 @@ const islogout = async (req, res, next) => {
     try {
         if (req.session.userId) {
             // If user is authenticated, redirect to home page
-            res.redirect("/home");
+            res.redirect("/chat.ejs");
         } else {
             // If user is not authenticated, proceed to next middleware
             next();

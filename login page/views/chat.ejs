@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
     
@@ -25,6 +26,14 @@
                     <div class="user-box">
                         <div class="user-profile-pic">
                             <img src="profilepic.png" alt="Profile Picture">
+                          <% 
+                          if(contact.is_online==1){%>
+                               <sup class="online-status" id="<%=contact._id%>-status"> <i class="bi bi-dot"></i> </sup>
+                          <%} 
+                          else{%>
+                            <sup class="offline-status" id="<%=contact._id%>-status"> <i class="bi bi-dot"></i> </sup>
+                          <%}
+                         %>
                         </div>
                         <div class="user-info">
                             <div class="username"><button class="user-contact" id="<%= contact.name %>" onclick="openMainChat('<%= contact.name %>')"><%= contact.name %></button></div>
@@ -47,6 +56,33 @@
     <%- include("mainchat.ejs") %>
 
     <script>
+
+ //socketio 
+    var sender_id='<%= loguser._id %>';
+    var reciever_id;
+var socket = io('/user-namespace',{
+    auth:{
+        token:'<%= loguser._id %>'
+    }
+});
+
+// update user online -status
+ socket.on('getOnlineUser', function(contact){
+    $('#'+contact.user_id+'-status').text('Online');
+    $('#'+contact.user_id+'-status').removeClass('offline-status');
+    $('#'+contact.user_id+'-status').addClass('online-status');
+ });
+
+ //update user offline -status
+ socket.on('getOfflineUser',function(contact){
+    $('#'+contact.user_id+'-status').text('Offline');
+    $('#'+contact.user_id+'-status').addClass('offline-status');
+    $('#'+contact.user_id+'-status').removeClass('online-status');
+    
+ })
+  
+  
+
     function sendMessage() {
         // Get the message input
         const messageInput = document.getElementById('messageInput');
@@ -84,19 +120,11 @@
                 optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
             });
 
-
-        
-
-        // userBoxes.forEach(userBox => {
-        //     userBox.addEventListener('click', () => {
-        //         const userName = userBox.querySelector('.user-name').innerText;
-        //         openMainChat(userName);
-        //     });
-        // });
-
         // Function to open the main chat box
         function openMainChat(userName) {
             // Hide the "Start Conversation" section
+            var userId=$(this).attr('data-id');
+            reciever_id=userId;
             document.querySelector('.chat-area').style.display = 'none';
 
             // Show the main chat box
@@ -107,6 +135,33 @@
 
             // You can perform additional actions here, such as loading previous messages or other functionalities.
         }
+
+        $('#chat-form').submit(function(event){
+            event.preventDefault();
+
+           var message= $('#messageInput').val();
+
+           $.ajax({
+            url:'/save-chat',
+            type:'POST',
+            data:{ sender_id:sender_id,reciever_id:reciever_id,message:message},
+            success:function(response){
+                if(response.success){
+                    console.log(response);
+                    $('#messageInput').val(''); 
+                    let chat =data.message;
+                    let html=`
+                    <div class="left-chat">
+                        `+chat+`
+                    </div>
+                    `;
+                }
+                else{
+                    alert(data.msg);
+                }
+            }
+           });
+        });
     </script>  
 </body>
 </html>

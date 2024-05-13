@@ -75,6 +75,24 @@ h1 {
     object-fit: cover;
     margin-bottom: 20px;
 }
+.user-profile-pic {
+    position: relative;
+}
+
+.bi-dot {
+    position: absolute;
+    right:-15px;
+    top:0px;
+    font-size: 45px; 
+    
+}
+.online-status{
+    color:green;
+}
+
+.offline-status{
+    color:gray;
+}
 
 .profile-info-container {
     max-height: 200px; /* Set the maximum height for the container */
