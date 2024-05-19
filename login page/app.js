@@ -233,7 +233,13 @@ usp.on('connection',async function(socket){
         //user broadcasst offline status
      socket.broadcast.emit('getOfflineUser',{user_id:userId});
      });
+
+     //chatting implementation
+     socket.on('newChat',function(data){
+      socket.broadcast.emit('loadNewChat',data);
+     })
 });
+
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
